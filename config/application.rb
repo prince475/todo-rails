@@ -11,6 +11,16 @@ module TodoRails
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # configure midleware - is a piece of code excuted(action) before the actual tergeted controller is hit
+    # cookies middle ware
+    # action dispatch is part of action controller
+    # configure source where cookies come from
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.action_dispatch.cookies_same_site_protection = :strict
+
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

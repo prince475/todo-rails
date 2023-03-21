@@ -3,15 +3,29 @@ class TodosController < ApplicationController
 
 
   def index
+    email = session[:email]
+    if email
     render json: Todo.all
+    else
+      render json: { message: "you are not logged in" }, status: :unauthorized
+    end
+    
   end
 
   def create
     # title = todo_params[:title]
     # description = todo_params[:description]
 
-    todo = Todo.create(todo_params)
-    render json: todo
+    user = cookies[:email]
+
+    if user
+      todo = Todo.create(todo_params)
+      render json: todo, serializer: TodoSerializer
+    end
+
+
+    # todo = Todo.create(todo_params)
+    # render json: todo, serializer: TodoSerializer
 
   end
 
